@@ -1,15 +1,19 @@
-// import { DeepPartial } from 'typeorm';
-// import { CreateMemeDto } from './create-meme.dto';
-
+import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional, IsString, IsUrl } from 'class-validator';
 
-// export type UpdateMemeDto = DeepPartial<CreateMemeDto>;
-
 export class UpdateMemeDto {
+  @ApiProperty({
+    description: 'Meme name',
+    type: String,
+  })
   @IsOptional()
   @IsString()
   name: string;
 
+  @ApiProperty({
+    description: 'Meme url',
+    type: String,
+  })
   @IsOptional()
   @IsUrl()
   imageUrl: string;

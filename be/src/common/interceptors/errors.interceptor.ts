@@ -5,8 +5,8 @@ import { Observable, catchError, throwError } from 'rxjs';
 export class ErrorsInterceptor implements NestInterceptor {
   intercept(_: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
     return next.handle().pipe(
-      catchError((error: Error) => {
-        return throwError(() => new BadRequestException(error.message));
+      catchError((error) => {
+        return throwError(() => new BadRequestException(error?.response?.message));
       }),
     );
   }

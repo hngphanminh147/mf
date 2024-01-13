@@ -1,3 +1,5 @@
+import { LoggingInterceptor } from '@common/interceptors';
+import { ErrorsInterceptor } from '@common/interceptors/errors.interceptor';
 import { CustomLogger } from '@core/common/logger';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
@@ -11,7 +13,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.use(helmet());
-  // app.useGlobalInterceptors(new LoggingInterceptor());
+  app.useGlobalInterceptors(new ErrorsInterceptor());
+  app.useGlobalInterceptors(new LoggingInterceptor());
   app.useGlobalPipes(new ValidationPipe());
   app.useLogger(app.get(CustomLogger));
   app.setGlobalPrefix(API_PREFIX);
@@ -20,12 +23,9 @@ async function bootstrap() {
   });
 
   const config = new DocumentBuilder()
-    // .setTitle(process.env.npm_package_name)
-    // .setDescription(process.env.npm_package_description)
-    // .setVersion(process.env.npm_package_version)
-    .setTitle('mf')
-    .setDescription('mf')
-    .setVersion('0.0.1')
+    .setTitle(process.env.npm_package_name)
+    .setDescription(process.env.npm_package_description)
+    .setVersion(process.env.npm_package_version)
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('apiDocs', app, document);
