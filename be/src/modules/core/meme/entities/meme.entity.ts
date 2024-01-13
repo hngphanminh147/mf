@@ -4,7 +4,10 @@ import { TextBoxEntity } from './text-box.entity';
 
 @Entity({ name: 'meme' })
 export class MemeEntity extends AbstractBaseEntity {
-  @Column()
+  @Column({ name: 'name', type: 'varchar', nullable: false })
+  name: string;
+
+  @Column({ name: 'image_url', type: 'varchar', nullable: false })
   imageUrl: string;
 
   @OneToMany(() => TextBoxEntity, (textBox) => textBox.meme)

@@ -1,5 +1,5 @@
 import { CustomLogger } from '@core/common/logger';
-import { VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
@@ -12,6 +12,7 @@ async function bootstrap() {
 
   app.use(helmet());
   // app.useGlobalInterceptors(new LoggingInterceptor());
+  app.useGlobalPipes(new ValidationPipe());
   app.useLogger(app.get(CustomLogger));
   app.setGlobalPrefix(API_PREFIX);
   app.enableVersioning({

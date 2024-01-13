@@ -1,6 +1,9 @@
-// export class CreateMemeDto {}
+import { IsString, IsUrl } from 'class-validator';
 
-import { DeepPartial } from 'typeorm';
-import { MemeEntity } from '../entities';
+export class CreateMemeDto {
+  @IsString()
+  name: string;
 
-export type CreateMemeDto = DeepPartial<MemeEntity>;
+  @IsUrl()
+  imageUrl: string;
+}

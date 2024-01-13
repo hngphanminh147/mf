@@ -13,9 +13,9 @@ export class LoggingInterceptor implements NestInterceptor {
     // const serverResponse = context.switchToHttp().getResponse();
 
     this.logger.log(
-      `${controllerName}.${handlerName} [${startTime.toISOString()}] Processing with params={${JSON.stringify(
+      `${controllerName}.${handlerName} [${startTime.toISOString()}] Processing with params=${JSON.stringify(
         incomingMessage.params,
-      )}}, query={${JSON.stringify(incomingMessage.query)}}`,
+      )}, query=${JSON.stringify(incomingMessage.query)}`,
     );
 
     return next.handle().pipe(

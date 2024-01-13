@@ -1,40 +1,47 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { CreateMemeDto } from './dto/create-meme.dto';
-import { UpdateMemeDto } from './dto/update-meme.dto';
-import { MemeEntity } from './entities';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { UpdateMemeDto } from './dto';
+import { CreateMemeDto } from './dto/create-meme.dto';
+import { MemeResponse } from './dto/response/meme.response';
+import { MemeEntity } from './entities';
 
 @Injectable()
 export class MemeService {
   constructor(@InjectRepository(MemeEntity) private readonly repository: Repository<MemeEntity>) {}
 
-  create(createMemeDto: CreateMemeDto): Promise<MemeEntity> {
-    return this.repository.save(createMemeDto);
+  async create(createMemeDto: CreateMemeDto): Promise<MemeResponse> {
+    const existedEntity = await this.repository.save(createMemeDto);
+    return new MemeResponse(existedEntity);
   }
 
-  findAll(): Promise<MemeEntity[]> {
-    return this.repository.find();
+  async findAll(): Promise<MemeResponse[]> {
+    return (await this.repository.find()).map((entity) => new MemeResponse(entity));
   }
 
-  async findOne(id: number): Promise<MemeEntity> {
+  async findOne(id: number): Promise<MemeResponse> {
     const existedEntity = await this.repository.findOne({ where: { id } });
     if (!existedEntity) {
       throw new NotFoundException(`Entity with id {${id}} not found`);
     }
-    return existedEntity;
+    return new MemeResponse(existedEntity);
   }
 
-  async update(id: number, updateMemeDto: UpdateMemeDto): Promise<MemeEntity> {
+  async update(id: number, updateMemeDto: UpdateMemeDto): Promise<MemeResponse> {
     const existedEntity = await this.repository.findOne({ where: { id } });
     if (!existedEntity) {
       throw new NotFoundException(`Entity with id {${id}} not found`);
     }
     Object.assign(existedEntity, updateMemeDto);
-    return this.repository.save(existedEntity);
+    const updatedEntity = await this.repository.save(existedEntity);
+    return new MemeResponse(updatedEntity);
   }
 
-  remove(id: number): boolean {
+  async remove(id: number): Promise<boolean> {
+    const existedEntity = await this.repository.findOne({ where: { id } });
+    if (!existedEntity) {
+      throw new NotFoundException(`Entity with id {${id}} not found`);
+    }
     this.repository.softDelete({ id });
     return true;
   }

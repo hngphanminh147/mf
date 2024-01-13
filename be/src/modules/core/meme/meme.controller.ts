@@ -1,14 +1,16 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, UseInterceptors } from '@nestjs/common';
-import { MemeService } from './meme.service';
+import { ErrorsInterceptor } from '@common/interceptors/errors.interceptor';
+import { LoggingInterceptor } from '@common/interceptors/logging.interceptor';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from '@nestjs/common';
 import { CreateMemeDto } from './dto/create-meme.dto';
 import { UpdateMemeDto } from './dto/update-meme.dto';
-import { LoggingInterceptor } from '@common/interceptors/logging.interceptor';
+import { MemeService } from './meme.service';
 
 @Controller({
   path: 'meme',
   version: '1',
 })
 @UseInterceptors(LoggingInterceptor)
+@UseInterceptors(ErrorsInterceptor)
 export class MemeController {
   constructor(private readonly memeService: MemeService) {}
 

@@ -15,7 +15,7 @@ export class InitDatabase1704107553230 implements MigrationInterface {
       "y" integer NOT NULL,
       "width" integer NOT NULL,
       "height" integer NOT NULL,
-      "memeId" integer,
+      "meme_id" integer,
       CONSTRAINT "PK_72eb004f1def8369f10e0eee572" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
@@ -23,13 +23,14 @@ export class InitDatabase1704107553230 implements MigrationInterface {
       "created_date" TIMESTAMP NOT NULL DEFAULT now(),
       "update_date" TIMESTAMP NOT NULL DEFAULT now(),
       "delete_date" TIMESTAMP,
+      "name" character varying NOT NULL,
       "image_url" character varying NOT NULL,
       CONSTRAINT "PK_d6db1ab4ee9ad9dbe86c64e4cc3" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
       `ALTER TABLE "text_box" 
       ADD CONSTRAINT "FK_8873f368ef1ec39b5f9c21c0326" 
-      FOREIGN KEY ("memeId") REFERENCES "meme"("id") 
+      FOREIGN KEY ("meme_id") REFERENCES "meme"("id") 
       ON DELETE NO ACTION 
       ON UPDATE NO ACTION`,
     );

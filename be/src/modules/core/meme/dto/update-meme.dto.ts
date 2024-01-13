@@ -1,4 +1,16 @@
-import { DeepPartial } from 'typeorm';
-import { CreateMemeDto } from './create-meme.dto';
+// import { DeepPartial } from 'typeorm';
+// import { CreateMemeDto } from './create-meme.dto';
 
-export type UpdateMemeDto = DeepPartial<CreateMemeDto>;
+import { IsOptional, IsString, IsUrl } from 'class-validator';
+
+// export type UpdateMemeDto = DeepPartial<CreateMemeDto>;
+
+export class UpdateMemeDto {
+  @IsOptional()
+  @IsString()
+  name: string;
+
+  @IsOptional()
+  @IsUrl()
+  imageUrl: string;
+}
