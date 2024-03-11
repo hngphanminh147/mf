@@ -6,34 +6,46 @@ Backend
 
 Postgresql: Create database follow the configuration in `.local.env`
 
-## Installation
+Migrate database:
 
 ```bash
-$ yarn install
+yarn migration:run
+```
+
+## Start the app in Docker
+
+```bash
+docker compose up
+```
+
+## Package Installation
+
+```bash
+yarn install
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ yarn run start
+yarn start
 
 # watch mode
-$ yarn run start:dev
+yarn start:dev
 
 # production mode
-$ yarn run start:prod
+yarn start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ yarn run test
+yarn test
 
 # e2e tests
-$ yarn run test:e2e
+yarn test:e2e
 
 # test coverage
-$ yarn run test:cov
+yarn test:cov
 ```
