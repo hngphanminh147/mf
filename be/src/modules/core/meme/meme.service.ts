@@ -1,14 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { UpdateMemeDto } from './dto';
 import { CreateMemeDto } from './dto/create-meme.dto';
 import { MemeResponse } from './dto/response/meme.response';
-import { MemeEntity } from './entities';
+import { MemeRepository } from './meme.repository';
 
 @Injectable()
 export class MemeService {
-  constructor(@InjectRepository(MemeEntity) private readonly repository: Repository<MemeEntity>) {}
+  constructor(private readonly repository: MemeRepository) {}
 
   async create(createMemeDto: CreateMemeDto): Promise<MemeResponse> {
     const existedEntity = await this.repository.save(createMemeDto);
