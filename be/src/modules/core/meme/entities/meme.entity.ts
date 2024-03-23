@@ -1,4 +1,4 @@
-import { AbstractBaseEntity } from '@common/entities/abstract-base.entity';
+import { AbstractBaseEntity } from '@common/entities';
 import { Column, Entity, OneToMany } from 'typeorm';
 import { TextBoxEntity } from './text-box.entity';
 

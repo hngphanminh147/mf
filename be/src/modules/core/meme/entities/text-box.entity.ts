@@ -1,4 +1,4 @@
-import { AbstractBaseEntity } from '@common/entities/abstract-base.entity';
+import { AbstractBaseEntity } from '@common/entities';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { MemeEntity } from './meme.entity';
 

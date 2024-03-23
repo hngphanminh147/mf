@@ -1,8 +1,8 @@
-import { LoggingInterceptor } from '@common/interceptors';
-import { ErrorsInterceptor } from '@common/interceptors/errors.interceptor';
+import { ErrorsInterceptor, LoggingInterceptor } from '@common/interceptors';
 import { CustomLogger } from '@core/common/logger';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
@@ -11,6 +11,9 @@ const API_PREFIX = 'mf/api/';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.KAFKA,
+  });
 
   app.use(helmet());
   app.useGlobalInterceptors(new ErrorsInterceptor());

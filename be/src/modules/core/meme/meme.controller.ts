@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { CreateMemeDto } from './dto/create-meme.dto';
-import { UpdateMemeDto } from './dto/update-meme.dto';
+import { CreateMemeDto, UpdateMemeDto } from './dto';
 import { MemeService } from './meme.service';
 
 @ApiTags('memes')

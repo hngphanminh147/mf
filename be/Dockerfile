@@ -1,10 +1,16 @@
-FROM node:20.10.0
+###################
+# BUILD FOR LOCAL DEVELOPMENT
+###################
 
-WORKDIR /app
+FROM node:20.10.0 AS development
+
+WORKDIR /usr/src/app
+
+USER root
 
 COPY package*.json ./
 
-RUN yarn install
+RUN yarn install 
 
 COPY . .
 

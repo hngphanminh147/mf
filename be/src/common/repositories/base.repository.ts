@@ -1,4 +1,4 @@
-import { AbstractBaseEntity } from '@common/entities/abstract-base.entity';
+import { AbstractBaseEntity } from '@common/entities';
 import {
   DeepPartial,
   FindManyOptions,

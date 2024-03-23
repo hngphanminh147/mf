@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { UpdateMemeDto } from './dto';
-import { CreateMemeDto } from './dto/create-meme.dto';
-import { MemeResponse } from './dto/response/meme.response';
+import { CreateMemeDto, UpdateMemeDto } from './dto';
+import { MemeResponse } from './dto/response';
 import { MemeRepository } from './meme.repository';
 
 @Injectable()
